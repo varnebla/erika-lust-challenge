@@ -1,0 +1,24 @@
+{
+  "name": "erika-lust-challenge",
+  "version": "1.0.0",
+  "description": "My world-class Nuxt.js project",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "axios": "^0.19.1",
+    "nuxt": "^2.0.0",
+    "nuxt-typed-vuex": "^0.1.15",
+    "vue-property-decorator": "^8.3.0"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.5.5",
+    "@nuxtjs/tailwindcss": "^1.0.0",
+    "vuex-module-decorators": "^0.11.0"
+  }
+}
