@@ -1,20 +1,8 @@
 <template>
-  <div class="container">
-    
-      <div  
-      class="flex justify-center flex-wrap">
-        <!-- <div class="movie_card">
-          <img class="w-full" :src="film.backdropPath" alt="">
-          <div class="card_body">
-            <span class="">{{film.title}}</span>
-            <h2 class="score"></h2>
-          </div>
-        </div> -->
+  <div class="container mx-auto pt-24">    
+      <div class="flex justify-center flex-wrap">        
         <card v-for="film in films" v-bind:key="film.id" :film="film"/>
       </div>
-
-      
-
   </div>
 </template>
 
@@ -63,14 +51,15 @@ export default class Index extends Vue {
   @apply min-h-screen flex justify-center items-center text-center mx-auto;
 }
 */
-.container {
+/* .container {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
+
+} */
 
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,

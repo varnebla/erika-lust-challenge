@@ -6,13 +6,14 @@ import { getAccessorType, mutationTree, actionTree } from 'nuxt-typed-vuex';
 
 const baseUrl : string = 'https://api.themoviedb.org/3/';
 const apiKey : string = '2592933c3ddb2943689179a5a80df403';
-const imgUrl: string = 'https://image.tmdb.org/t/p/w300';
+const imgUrl: string = 'https://image.tmdb.org/t/p/w500';
 
 
 
 //state
 export const state: ProfileState = {
-  films: [] as Film[] 
+  films: [] as Film[],
+  filmDetails: {} as Film
 };
 
 
@@ -22,23 +23,44 @@ export const mutations= mutationTree(state,{
     return state.films = newState.map((el:any)=>{
       const result: Film = {
         id: el.id,
-        title: el.original_title,
+        title: el.title,
         video: el.video,
         posterPath: el.poster_path ?  imgUrl + el.poster_path : el.poster_path,
         backdropPath: el.backdrop_path ?  imgUrl + el.backdrop_path : el.backdrop_path,
         voteAverage: el.vote_average,
-        overview: el.overview
+        overview: el.overview,
+        genres: [],
+        actors: [],
+        date: el.release_date
       }
       return result;
     })
-  }    
+  },
+  getFilm: (state, newState) => {
+    
+    const film = newState.film;
+    const credits:any = newState.credits;
+    state.filmDetails = {
+      id: film.id,
+      title: film.title,
+      video: film.video,
+      posterPath: film.poster_path ?  imgUrl + film.poster_path : film.poster_path,
+      backdropPath: film.backdrop_path ?  imgUrl + film.backdrop_path : film.backdrop_path,
+      voteAverage: film.vote_average,
+      overview: film.overview,
+      genres: film.genres.map((el:any)=> el.name),
+      actors: credits.cast.map((el:any)=>el.name).slice(0,5),//We only want 5 actors
+      date: film.release_date
+    };
+    return state;
+  }  
 });
 
 
 //actions
 export const actions = actionTree({state, mutations},{
   fetchFilms: async({commit}) => {
-    const url: string = `${baseUrl}discover/movie?api_key=${apiKey}`;
+    const url: string = `${baseUrl}movie/popular?api_key=${apiKey}&region=ES`;
     const result = await axios.get(url);
     commit('getAllFilms', result.data.results); 
   },
@@ -46,6 +68,14 @@ export const actions = actionTree({state, mutations},{
     const url: string = `${baseUrl}search/movie?api_key=${apiKey}&query=${name}`;
     const result = await axios.get(url);
     commit('getAllFilms', result.data.results);
+  },
+  getFilmDetails: async({commit}, id) =>{
+    const urlFilm: string = `${baseUrl}movie/${id}?api_key=${apiKey}`;
+    const urlCast: string = `${baseUrl}movie/${id}/credits?api_key=${apiKey}`;
+    const film = await axios.get(urlFilm);
+    const credits = await axios.get(urlCast);
+    const filmDetails = {film: film.data, credits: credits.data}
+    commit('getFilm', filmDetails);
   }
 });
 

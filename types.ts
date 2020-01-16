@@ -1,7 +1,8 @@
 //import {GetterTree, MutationTree, ActionTree} from 'vuex';
 
 export interface ProfileState {
-  films: Film[]
+  films: Film[],
+  filmDetails: Film
 }
 
 export interface Film {
@@ -11,7 +12,10 @@ export interface Film {
   posterPath: string,
   backdropPath: string,
   voteAverage: number,
-  overview: string
+  overview: string,
+  genres: string[],
+  actors: string[],
+  date: string
 }
 
 // export type Getters = GetterTree<ProfileState, any>
