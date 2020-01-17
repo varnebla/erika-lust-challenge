@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.19.1",
     "nuxt": "^2.0.0",
+    "nuxt-svg-loader": "^1.0.1",
     "nuxt-typed-vuex": "^0.1.15",
     "vue-property-decorator": "^8.3.0"
   },

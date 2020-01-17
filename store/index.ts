@@ -1,12 +1,12 @@
 //import {Module, VuexModule, Action, Mutation} from 'vuex-module-decorators'
 //import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import axios from 'axios'
-import { Film, ProfileState } from '~/types.ts'
+import { Film, ProfileState, Actor } from '~/types.ts'
 import { getAccessorType, mutationTree, actionTree } from 'nuxt-typed-vuex';
 
 const baseUrl : string = 'https://api.themoviedb.org/3/';
 const apiKey : string = '2592933c3ddb2943689179a5a80df403';
-const imgUrl: string = 'https://image.tmdb.org/t/p/w500';
+const imgUrl: string = 'https://image.tmdb.org/t/p/';
 
 
 
@@ -25,8 +25,8 @@ export const mutations= mutationTree(state,{
         id: el.id,
         title: el.title,
         video: el.video,
-        posterPath: el.poster_path ?  imgUrl + el.poster_path : el.poster_path,
-        backdropPath: el.backdrop_path ?  imgUrl + el.backdrop_path : el.backdrop_path,
+        posterPath: el.poster_path ?  imgUrl + 'w500/' + el.poster_path : el.poster_path,
+        backdropPath: el.backdrop_path ?  imgUrl + 'w500/' + el.backdrop_path : el.backdrop_path,
         voteAverage: el.vote_average,
         overview: el.overview,
         genres: [],
@@ -44,12 +44,20 @@ export const mutations= mutationTree(state,{
       id: film.id,
       title: film.title,
       video: film.video,
-      posterPath: film.poster_path ?  imgUrl + film.poster_path : film.poster_path,
-      backdropPath: film.backdrop_path ?  imgUrl + film.backdrop_path : film.backdrop_path,
+      posterPath: film.poster_path ?  imgUrl + 'w500/' + film.poster_path : film.poster_path,
+      backdropPath: film.backdrop_path ?  imgUrl + 'original/' + film.backdrop_path : film.backdrop_path,
       voteAverage: film.vote_average,
       overview: film.overview,
       genres: film.genres.map((el:any)=> el.name),
-      actors: credits.cast.map((el:any)=>el.name).slice(0,5),//We only want 5 actors
+      actors: credits.cast.map((el:any)=>{
+        const result: Actor = {
+          id: el.id,
+          name: el.name,
+          character: el.character,
+          poster: imgUrl + 'w500/' + el.profile_path
+        };
+        return result;
+      }).slice(0,5),//We only want 5 actors
       date: film.release_date
     };
     return state;

@@ -14,8 +14,15 @@ export interface Film {
   voteAverage: number,
   overview: string,
   genres: string[],
-  actors: string[],
+  actors: Actor[],
   date: string
+}
+
+export interface Actor {
+  id: number,
+  name: string,
+  character: string,
+  poster: string
 }
 
 // export type Getters = GetterTree<ProfileState, any>
