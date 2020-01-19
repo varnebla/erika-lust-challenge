@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center">
+  <div v-if='this.$route.name === "index"' class="flex justify-center">
     <input type="text" class="focus:outline-none border-solid border-1 border-gray-500 bg-gray-200 rounded-lg p-2 placeholder-gray-400 text-gray-600" placeholder="Search" @keyup.enter="searchFilms">
     
   </div>

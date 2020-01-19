@@ -4,10 +4,16 @@
 
 h1 {
   @apply text-2xl;
+  @apply text-white;
 }
 h2 {
   @apply text-xl;
+  @apply text-white;
 }
 h3 {
   @apply text-lg;
+  @apply text-white;
+}
+span{
+  @apply text-white;
 }

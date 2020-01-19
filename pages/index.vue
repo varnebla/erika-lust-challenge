@@ -1,14 +1,13 @@
 <template>
   <div class="container mx-auto pt-24">    
-      <div class="flex justify-center flex-wrap">        
-        <card v-for="film in films" v-bind:key="film.id" :film="film"/>
-      </div>
+    <div class="flex justify-center flex-wrap">
+      <card v-for="film in films" v-bind:key="film.id" :info="film"/>
+    </div>
   </div>
 </template>
 
 <script lang='ts'>
 import Card from '../components/Card.vue';
-import {Film, ProfileState} from 'types';
 import {Vue, Component} from 'vue-property-decorator';
 
 @Component(

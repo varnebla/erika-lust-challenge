@@ -1,7 +1,7 @@
 //import {Module, VuexModule, Action, Mutation} from 'vuex-module-decorators'
 //import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import axios from 'axios'
-import { Film, ProfileState, Actor } from '~/types.ts'
+import { Film, FilmDetails, ProfileState, Actor, CardInfo } from '~/types.ts'
 import { getAccessorType, mutationTree, actionTree } from 'nuxt-typed-vuex';
 
 const baseUrl : string = 'https://api.themoviedb.org/3/';
@@ -12,7 +12,7 @@ const imgUrl: string = 'https://image.tmdb.org/t/p/';
 
 //state
 export const state: ProfileState = {
-  films: [] as Film[],
+  films: [] as CardInfo[],
   filmDetails: {} as Film
 };
 
@@ -21,44 +21,53 @@ export const state: ProfileState = {
 export const mutations= mutationTree(state,{
   getAllFilms: (state, newState) => {
     return state.films = newState.map((el:any)=>{
-      const result: Film = {
+      const result: CardInfo = {
         id: el.id,
+        type: 'movie',
         title: el.title,
-        video: el.video,
-        posterPath: el.poster_path ?  imgUrl + 'w500/' + el.poster_path : el.poster_path,
-        backdropPath: el.backdrop_path ?  imgUrl + 'w500/' + el.backdrop_path : el.backdrop_path,
-        voteAverage: el.vote_average,
-        overview: el.overview,
-        genres: [],
-        actors: [],
-        date: el.release_date
-      }
+        subtitle: el.vote_average,
+        poster: el.poster_path ?  imgUrl + 'w500/' + el.poster_path : el.poster_path,        
+      };
       return result;
     })
   },
   getFilm: (state, newState) => {
     
-    const film = newState.film;
+    const film: any = newState.film;
     const credits:any = newState.credits;
+    const similarMovies: any = newState.similarMovies;
     state.filmDetails = {
       id: film.id,
       title: film.title,
-      video: film.video,
       posterPath: film.poster_path ?  imgUrl + 'w500/' + film.poster_path : film.poster_path,
-      backdropPath: film.backdrop_path ?  imgUrl + 'original/' + film.backdrop_path : film.backdrop_path,
       voteAverage: film.vote_average,
-      overview: film.overview,
-      genres: film.genres.map((el:any)=> el.name),
-      actors: credits.cast.map((el:any)=>{
-        const result: Actor = {
-          id: el.id,
-          name: el.name,
-          character: el.character,
-          poster: imgUrl + 'w500/' + el.profile_path
-        };
-        return result;
-      }).slice(0,5),//We only want 5 actors
-      date: film.release_date
+      filmDetails: {
+        video: film.video,
+        backdropPath: film.backdrop_path ?  imgUrl + 'original/' + film.backdrop_path : film.backdrop_path,
+        overview: film.overview,
+        genres: film.genres.map((el:any)=> el.name),
+        actors: credits.cast.map((el:any)=>{
+          const result: CardInfo = {
+            id: el.id,
+            type:'actor',
+            title: el.name,
+            subtitle: el.character,
+            poster: el.profile_path ? imgUrl + 'w500/' + el.profile_path : el.profile_path
+          };
+          return result;
+        }).slice(0,10),//We only want 5 actors
+        date: film.release_date,
+        relatedFilms: similarMovies.results.map((el:any)=>{
+          const result: CardInfo = {
+            id: el.id,
+            type:'movie',
+            title: el.title,
+            subtitle: el.vote_average,
+            poster: el.poster_path ?  imgUrl + 'w500/' + el.poster_path : el.poster_path,
+          };
+          return result;
+        })
+      },
     };
     return state;
   }  
@@ -80,9 +89,11 @@ export const actions = actionTree({state, mutations},{
   getFilmDetails: async({commit}, id) =>{
     const urlFilm: string = `${baseUrl}movie/${id}?api_key=${apiKey}`;
     const urlCast: string = `${baseUrl}movie/${id}/credits?api_key=${apiKey}`;
+    const urlRelated = `${baseUrl}movie/${id}/similar?api_key=${apiKey}`;
     const film = await axios.get(urlFilm);
     const credits = await axios.get(urlCast);
-    const filmDetails = {film: film.data, credits: credits.data}
+    const similarMovies = await axios.get(urlRelated);
+    const filmDetails = {film: film.data, credits: credits.data, similarMovies: similarMovies.data};
     commit('getFilm', filmDetails);
   }
 });

@@ -1,29 +1,25 @@
 <template>
   <div class="movie-card rounded cursor-pointer overflow-hidden shadow m-2">
-    <div class="card-header relative" v-bind:style="{backgroundImage: 'url('+imgUrl+')'}">
-    <!-- <img class="w-full" :src="imgUrl" alt=""> -->
-    <div class="card-info absolute bottom-0 left-0 inset-x-0 flex flex-col">
-      <h3 class="text-white font-bold p-2 w-full">{{film.title}}</h3>
-      <h2 class="text-white font bold p-2 w-full">{{film.voteAverage}}</h2>
-    </div>
-    </div>
-    
+    <n-link v-if='info.type==="movie"' :to="`/film/${info.id}`">
+      <card-info :info='info'/>
+    </n-link>
+    <card-info v-else :info='info'/>
   </div>
 </template>
 
 <script lang='ts'>
 import { Component, Prop, Vue } from "vue-property-decorator"
-
+import CardInfo from './CardInfo.vue';
 
 @Component({
-
+  components: {
+    CardInfo
+  }
 })
 export default class Card extends Vue {
   
   @Prop({ type: Object, required: true })
-  film: any
-  
-  imgUrl: string = this.film.posterPath || '/img_not_available.jpg';
+  info: any;  
 }
 </script>
 
