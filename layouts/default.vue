@@ -5,12 +5,17 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
   import Navbar from '~/components/Navbar.vue'
-  export default {
-  components: {
-    Navbar
-  }
+  import {Component, Vue} from 'vue-property-decorator'
+
+  @Component({
+    components:{
+      Navbar
+    }
+  })
+  export default class Default extends Vue{
+    
 }
 </script>
 <style>

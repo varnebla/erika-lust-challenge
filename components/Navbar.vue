@@ -7,6 +7,7 @@
         MOVIES
         </nuxt-link> 
       </h1>
+      <!-- we hide search bar when in film details -->
       <Search v-if='this.$route.name === "index"' />
     </div>
   </div>
@@ -14,13 +15,17 @@
 </div>
 </template>
 
-<script>
+<script lang='ts'>
 import Search from './Search.vue'
+import {Component, Vue} from 'vue-property-decorator';
 
-export default {
-  components: {
+@Component({
+  components:{
     Search
   }
+})
+export default class NavBar extends Vue{
+  
 }
 
 </script>

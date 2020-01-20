@@ -40,6 +40,7 @@
 import {Component, Vue} from 'vue-property-decorator';
 import Card from '~/components/Card.vue';
 import star from '~/static/svg/icon-star.svg'
+
 @Component({
    async fetch({app:{$accessor}, route}) {
     await $accessor.getFilmDetails(route.params.id);

@@ -4,9 +4,10 @@ import axios from 'axios'
 import { Film, ProfileState, CardInfo } from '~/types.ts'
 import { getAccessorType, mutationTree, actionTree } from 'nuxt-typed-vuex';
 
-const baseUrl : string = 'https://api.themoviedb.org/3/';
-const apiKey : string = '2592933c3ddb2943689179a5a80df403';
-const imgUrl: string = 'https://image.tmdb.org/t/p/';
+
+const baseUrl : string | undefined = process.env.baseUrl;
+const apiKey : string | undefined = process.env.apiKey;
+const imgUrl: string | undefined = process.env.imageUrl;
 
 
 

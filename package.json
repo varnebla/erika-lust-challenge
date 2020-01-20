@@ -2,7 +2,7 @@
   "name": "erika-lust-challenge",
   "version": "1.0.0",
   "description": "My world-class Nuxt.js project",
-  "author": "",
+  "author": "Victor Arnedo",
   "private": true,
   "scripts": {
     "dev": "nuxt",

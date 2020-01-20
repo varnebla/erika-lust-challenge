@@ -55,5 +55,10 @@ export default {
    transpile: [/typed-vuex/],
     extend (config, ctx) {
     }
+  },
+  env:{
+    baseUrl: 'https://api.themoviedb.org/3/',
+    apiKey: '2592933c3ddb2943689179a5a80df403',
+    imageUrl: 'https://image.tmdb.org/t/p/'
   }
 }
