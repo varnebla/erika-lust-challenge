@@ -17,6 +17,8 @@
         </div>
       </div>
       <div class="body mt-4">
+        <h1>Trailer</h1>
+        <trailer :url='film.filmDetails.video' />
         <h1>Actors</h1>
         <div class="actors mb-4">
           <div class="flex overflow-x-auto overflow-y-hidden">
@@ -39,6 +41,7 @@
 <script lang='ts'>
 import {Component, Vue} from 'vue-property-decorator';
 import Card from '~/components/Card.vue';
+import Trailer from '~/components/Trailer.vue';
 import star from '~/static/svg/icon-star.svg' //issue with svg-loader
 
 @Component({
@@ -47,7 +50,8 @@ import star from '~/static/svg/icon-star.svg' //issue with svg-loader
   },
   components:{
     Card,
-    star
+    star,
+    Trailer
   }
 })
 export default class Film extends Vue {

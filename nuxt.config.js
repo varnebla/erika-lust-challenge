@@ -58,6 +58,7 @@ export default {
   env: {
     baseUrl: 'https://api.themoviedb.org/3/',
     apiKey: '2592933c3ddb2943689179a5a80df403',
-    imageUrl: 'https://image.tmdb.org/t/p/'
+    imageUrl: 'https://image.tmdb.org/t/p/',
+    videoUrl: 'https://www.youtube.com/embed/'
   }
 }

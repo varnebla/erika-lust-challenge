@@ -9,18 +9,23 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore ."
+    "lint": "tslint --project ."
   },
   "dependencies": {
     "axios": "^0.19.1",
+    "global": "^4.4.0",
     "nuxt": "^2.0.0",
     "nuxt-svg-loader": "^1.0.1",
     "nuxt-typed-vuex": "^0.1.15",
+    "tslint": "^5.20.1",
     "vue-property-decorator": "^8.3.0"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.5.5",
     "@nuxtjs/tailwindcss": "^1.0.0",
+    "prettier": "^1.19.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.1.0",
     "vuex-module-decorators": "^0.11.0"
   }
 }
