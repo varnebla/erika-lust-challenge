@@ -1,7 +1,7 @@
 //import {Module, VuexModule, Action, Mutation} from 'vuex-module-decorators'
 //import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import axios from 'axios'
-import { Film, FilmDetails, ProfileState, Actor, CardInfo } from '~/types.ts'
+import { Film, ProfileState, CardInfo } from '~/types.ts'
 import { getAccessorType, mutationTree, actionTree } from 'nuxt-typed-vuex';
 
 const baseUrl : string = 'https://api.themoviedb.org/3/';
@@ -36,6 +36,7 @@ export const mutations= mutationTree(state,{
     const film: any = newState.film;
     const credits:any = newState.credits;
     const similarMovies: any = newState.similarMovies;
+    
     state.filmDetails = {
       id: film.id,
       title: film.title,
@@ -78,21 +79,28 @@ export const mutations= mutationTree(state,{
 export const actions = actionTree({state, mutations},{
   fetchFilms: async({commit}) => {
     const url: string = `${baseUrl}movie/popular?api_key=${apiKey}&region=ES`;
+
     const result = await axios.get(url);
+
     commit('getAllFilms', result.data.results); 
   },
   searchFilms: async({commit}, name) => {
     const url: string = `${baseUrl}search/movie?api_key=${apiKey}&query=${name}`;
+
     const result = await axios.get(url);
+
     commit('getAllFilms', result.data.results);
   },
   getFilmDetails: async({commit}, id) =>{
+    // we need the film, casting of the film and related films
     const urlFilm: string = `${baseUrl}movie/${id}?api_key=${apiKey}`;
     const urlCast: string = `${baseUrl}movie/${id}/credits?api_key=${apiKey}`;
     const urlRelated = `${baseUrl}movie/${id}/similar?api_key=${apiKey}`;
+
     const film = await axios.get(urlFilm);
     const credits = await axios.get(urlCast);
     const similarMovies = await axios.get(urlRelated);
+
     const filmDetails = {film: film.data, credits: credits.data, similarMovies: similarMovies.data};
     commit('getFilm', filmDetails);
   }

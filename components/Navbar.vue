@@ -6,8 +6,8 @@
         <nuxt-link to='/'>
         MOVIES
         </nuxt-link> 
-        </h1>
-      <Search />
+      </h1>
+      <Search v-if='this.$route.name === "index"' />
     </div>
   </div>
   

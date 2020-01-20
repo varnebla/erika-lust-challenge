@@ -38,7 +38,6 @@
 
 <script lang='ts'>
 import {Component, Vue} from 'vue-property-decorator';
-import {CardInfo} from 'types';
 import Card from '~/components/Card.vue';
 import star from '~/static/svg/icon-star.svg'
 @Component({

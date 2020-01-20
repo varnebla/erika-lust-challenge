@@ -1,5 +1,3 @@
-//import {GetterTree, MutationTree, ActionTree} from 'vuex';
-
 export interface ProfileState {
   films: CardInfo[],
   filmDetails: Film
@@ -36,8 +34,4 @@ export interface CardInfo {
   title: string,
   subtitle: string,
   poster: string
-}
-
-// export type Getters = GetterTree<ProfileState, any>
-// export type Mutations = MutationTree<ProfileState>
-// export type Actions = ActionTree<ProfileState, any> 
+} 
