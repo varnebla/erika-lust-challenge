@@ -1,4 +1,3 @@
-
 export default {
   mode: 'universal',
   /*
@@ -13,7 +12,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {rel: 'stylesheet', href:'https://fonts.googleapis.com/css?family=Alata|Open+Sans&display=swap'}
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Alata|Open+Sans&display=swap'}
     ]
   },
   /*
@@ -56,7 +55,7 @@ export default {
     extend (config, ctx) {
     }
   },
-  env:{
+  env: {
     baseUrl: 'https://api.themoviedb.org/3/',
     apiKey: '2592933c3ddb2943689179a5a80df403',
     imageUrl: 'https://image.tmdb.org/t/p/'

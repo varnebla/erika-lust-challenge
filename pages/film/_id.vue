@@ -39,7 +39,7 @@
 <script lang='ts'>
 import {Component, Vue} from 'vue-property-decorator';
 import Card from '~/components/Card.vue';
-import star from '~/static/svg/icon-star.svg'
+import star from '~/static/svg/icon-star.svg' //issue with svg-loader
 
 @Component({
    async fetch({app:{$accessor}, route}) {
@@ -50,7 +50,7 @@ import star from '~/static/svg/icon-star.svg'
     star
   }
 })
-export default class Film extends Vue{
+export default class Film extends Vue {
 
   backdropUrl: string = this.$accessor.filmDetails.filmDetails.backdropPath || '/img_not_available.jpg'
   date: string = this.$accessor.filmDetails.filmDetails.date;
